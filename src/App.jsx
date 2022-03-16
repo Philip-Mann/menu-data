@@ -26,11 +26,11 @@ function App() {
     },
   ]);
 
-  const removeItem = (id) => {
+  const removeItem = (id, i) => {
     const filterItem = menuData.find((x) => x.id === id);
     filterItem.inventory = filterItem.inventory - 1;
     const newMenuData = menuData.filter(x => x.id !== id);
-    newMenuData.push(filterItem);
+    newMenuData.splice(i, 0, filterItem);
     setMenuData(newMenuData);
     console.log(menuData);
   };
@@ -41,14 +41,16 @@ function App() {
         <h1>Menu Data</h1>
         <p>
           Assignments (using React or another UI framework of your choice):
-          1. Create a "menu" that displays each item name.
-          2. When a user clicks on an item, decrease that item's inventory by 1.
-          use splice()
-          3. If an item runs out of inventory (reaches 0), don't display the item on the menu anymore.
+          <ul>
+            <li>1. Create a "menu" that displays each item name.</li>
+            <li>2. When a user clicks on an item, decrease that item's inventory by 1.</li>
+            <li>3. If an item runs out of inventory (reaches 0), don't display the item on the menu anymore.</li>
+
+          </ul>
         </p>
         {menuData.map((item, i) => {
           return (
-            !item.inventory ? '' : <p onClick={() => removeItem(item.id)} key={i}>
+            !item.inventory ? '' : <p onClick={() => removeItem(item.id, i)} key={i}>
               {item.name} - {item.inventory}
             </p>
           );
